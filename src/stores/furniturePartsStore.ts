@@ -29,18 +29,18 @@ export const useFurniturePartsStore = defineStore('furnitureParts', {
   }),
   getters: {
     getAll: (state):IFurnitureItem[] => state.items,
-    getItem: (state):IFurnitureItem => (id: number) => state.items.find((storeItem) => storeItem.id === id)
+    getItem: (state) => (id: number):IFurnitureItem | undefined => state.items.find((storeItem) => storeItem.id === id)
   },
   actions: {
-    addItem(item: IFurnitureParameters) {
+    addItem(item: IFurnitureParameters): void {
       this.items.push(item);
     },
-    updateItem(id: number, data: IFurnitureItem) {
+    updateItem(id: number, data: IFurnitureItem): void {
       const target = this.items[id];
       Object.assign(target, data);
     },
-    updateParts(id: number, data: IFurnitureItemPart) {
-      const target = this.items.find((storeItem) => storeItem.id === id);
+    updateParts(id: number, data: IFurnitureItemPart): void {
+      const target:IFurnitureItem | undefined = this.items.find((storeItem:IFurnitureItem) => storeItem.id === id);
       if (target) {
         target.parts = data;
       }

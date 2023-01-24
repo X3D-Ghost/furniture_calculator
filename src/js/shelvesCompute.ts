@@ -4,16 +4,16 @@ import {
   getInnerHeight,
 } from 'src/js/furniturePartsCompute';
 
-import { IDrawer, IFurnitureParameters } from 'src/js/interface/IFurniture';
+import { IBasicDimensions, IDrawer, IFurnitureParameters } from 'src/js/interface/IFurniture';
 
-export const getDrawers = (parameters: IFurnitureParameters) => {
+export const getDrawers = (parameters: IFurnitureParameters):IBasicDimensions[] => {
   const innerWidth: number = getInnerWidth(parameters);
   const innerDepth: number = getInnerDepth(parameters);
   const innerHeight: number = getInnerHeight(parameters);
   const count: number = parameters.drawersCount;
-  const guideGap = 15;
-  const drawersGap = 20;
-  const drawers = [];
+  const guideGap = <number>15;
+  const drawersGap = <number>20;
+  const drawers:IBasicDimensions[] = [];
   for (let i = 0; i < count; i++) {
     drawers.push({
       width: innerWidth - guideGap * 2,
@@ -27,7 +27,7 @@ export const getDrawers = (parameters: IFurnitureParameters) => {
 export const computeDrawersParts = (
   parameters: IFurnitureParameters
 ): IDrawer[] => {
-  const drawers = getDrawers(parameters);
+  const drawers:IBasicDimensions[] = getDrawers(parameters);
   const drawersArray: IDrawer[] = [];
 
   drawers.forEach((item) => {
@@ -40,7 +40,7 @@ export const computeDrawersParts = (
         partLength: item.depth - parameters.thickness * 2,
       },
     });
-    const drawerSide = {
+    const drawerSide: IDrawer = {
       type: 'drawerSide',
       title: 'ДСП (ящик)',
       dimensions: {
@@ -49,7 +49,7 @@ export const computeDrawersParts = (
         partLength: item.height,
       },
     };
-    const drawerFront = {
+    const drawerFront: IDrawer = {
       type: 'drawerFront',
       title: 'ДСП (ящик)',
       dimensions: {
@@ -58,7 +58,7 @@ export const computeDrawersParts = (
         partLength: item.height,
       },
     };
-    const drawerBack = {
+    const drawerBack :IDrawer = {
       ...drawerFront,
       type: 'drawerBack',
     };

@@ -1,6 +1,6 @@
 export const downloadPngFromSvg = (svg: string): void => {
   svgToPng(svg).then((output) => {
-    const link = document.createElement('a');
+    const link:HTMLAnchorElement = document.createElement('a');
     link.href = output;
     link.download = `export_${Date.now()}.png`;
     link.click();
@@ -16,7 +16,7 @@ const svgToPng = (svg: string) => <Promise<string>>new Promise((resolve) => {
   });
 });
 
-const getSvgUrl = (svg: string) =>
+const getSvgUrl = (svg: string):string =>
   URL.createObjectURL(
     new Blob([svg], {
       type: 'image/svg+xml'
@@ -25,10 +25,10 @@ const getSvgUrl = (svg: string) =>
 
 const svgUrlToPng = (svgUrl: string) =>
   <Promise<string>>new Promise((resolve) => {
-    const svgImage: any = document.createElement('img');
+    const svgImage: HTMLImageElement = document.createElement('img');
     document.body.appendChild(svgImage);
     svgImage.onload = () => {
-      const canvas = document.createElement('canvas');
+      const canvas:HTMLCanvasElement = document.createElement('canvas');
       canvas.width = svgImage.clientWidth;
       canvas.height = svgImage.clientHeight;
       const canvasCtx: any = canvas.getContext('2d');
